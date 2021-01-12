@@ -7,16 +7,29 @@ import getCoins from './services/CriptoService'
 function App() {
 
   const [coins, setCoins] = useState([])
+  const [coinsCopy, setCoinsCopy] = useState([])
 
   const updateCriptoCoins = (value) => {
-    console.log("Update...")
-    console.log(value)
+
+    if(value == '') {
+      setCoins(coinsCopy)
+    }else{
+      setCoins(coinsCopy.filter((coin) => (
+        coin[0].includes(value)
+      )))
+    }
   }
 
   useEffect(async () => {
     const response = await getCoins()
 
-    setCoins(response.data)
+    setCoins(...coins, Object.entries(response.data).map((entry) => (
+      [entry[0], entry[1].USD]
+    )))
+
+    setCoinsCopy(...coinsCopy, Object.entries(response.data).map((entry) => (
+      [entry[0], entry[1].USD]
+    )))
   }, [])
 
   return (

@@ -6,7 +6,6 @@ const Search = ({updateCriptoCoins}) => {
 
     const handleValue = (e) => {
         const criptoName = e.target.value
-        console.log("Handle value...")
         updateCriptoCoins(criptoName)
     }
 
