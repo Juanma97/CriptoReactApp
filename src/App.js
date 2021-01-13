@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Header from './components/Header/Header'
 import Search from './components/Search/Search'
-import Coins from './components/Coins'
+import Coins from './components/Coins/Coins'
+import Footer from './components/Footer/Footer'
 import getCoins from './services/CriptoService'
 
 function App() {
@@ -10,6 +11,8 @@ function App() {
   const [coinsCopy, setCoinsCopy] = useState([])
 
   const updateCriptoCoins = (value) => {
+
+    console.log("VALUE: ", value)
 
     if(value == '') {
       setCoins(coinsCopy)
@@ -24,11 +27,11 @@ function App() {
     const response = await getCoins()
 
     setCoins(...coins, Object.entries(response.data).map((entry) => (
-      [entry[0], entry[1].USD]
+      [entry[0], entry[1].USD, entry[1].EUR]
     )))
 
     setCoinsCopy(...coinsCopy, Object.entries(response.data).map((entry) => (
-      [entry[0], entry[1].USD]
+      [entry[0], entry[1].USD, entry[1].EUR]
     )))
   }, [])
 
@@ -41,6 +44,7 @@ function App() {
       <Coins
         coins={coins}
       />
+      <Footer />
     </div>
   );
 }

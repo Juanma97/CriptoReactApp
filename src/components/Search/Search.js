@@ -1,11 +1,10 @@
-import { computeHeadingLevel } from '@testing-library/react'
 import React from 'react'
 import style from './Search.css'
 
 const Search = ({updateCriptoCoins}) => {
 
     const handleValue = (e) => {
-        const criptoName = e.target.value
+        const criptoName = e.target.value.toUpperCase()
         updateCriptoCoins(criptoName)
     }
 
